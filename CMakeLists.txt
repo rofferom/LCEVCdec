@@ -29,20 +29,7 @@ option(VN_SDK_DOCS "Build Doxygen and Sphinx documentation" OFF)
 option(VN_SDK_USE_GHC_FILESYSTEM "Use ghc-filesystem instead of C++ standard <filesystem>" OFF)
 option(VN_SDK_COVERAGE "Generate gcov statistics for coverage" OFF)
 
-set(VN_SDK_FFMPEG_LIBS_PACKAGE
-    "pkgconfig"
-    CACHE
-        STRING
-        "SDK: Package to find for the 'ffmpeg...'' libraries used by samples and tests to decode base streams, or empty string for none"
-)
-# Unfortunately, some parsers read VAR="" as setting the variable to the 2-char string, "\"\"",
-# hence this awkward check.
-if(VN_SDK_FFMPEG_LIBS_PACKAGE AND NOT (VN_SDK_FFMPEG_LIBS_PACKAGE STREQUAL "\"\""))
-    message(STATUS "Using ${VN_SDK_FFMPEG_LIBS_PACKAGE} base decoder for test harnesses")
-    set(VN_SDK_BASE_DECODER ON)
-else()
-    set(VN_SDK_BASE_DECODER OFF)
-endif()
+set(VN_SDK_BASE_DECODER OFF)
 
 if(VN_SDK_EXECUTABLES AND NOT VN_SDK_JSON_CONFIG)
     message(FATAL_ERROR "JSON configuration option is required for executables")
